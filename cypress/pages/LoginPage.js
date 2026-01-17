@@ -1,40 +1,30 @@
 class LoginPage {
 
-  visit() {
-    cy.visit('https://opensource-demo.orangehrmlive.com/');
+  username() {
+    return cy.get('input[name="username"]')
   }
 
-  inputUsername(username) {
+  password() {
+    return cy.get('input[name="password"]')
+  }
+
+  loginButton() {
+    return cy.get('button[type="submit"]')
+  }
+
+  errorMessage() {
+    return cy.get('.oxd-alert-content-text')
+  }
+
+  login(username, password) {
     if (username !== null) {
-      cy.get('input[name="username"]').type(username);
+      this.username().clear().type(username)
     }
-  }
-
-  inputPassword(password) {
     if (password !== null) {
-      cy.get('input[name="password"]').type(password);
+      this.password().clear().type(password)
     }
-  }
-
-  clickLogin() {
-    cy.get('button[type="submit"]').click();
-  }
-
-  doubleClickLogin() {
-    cy.get('button[type="submit"]').dblclick();
-  }
-
-  assertLoginSuccess() {
-    cy.url().should('include', '/dashboard');
-  }
-
-  assertInvalidCredentials() {
-    cy.contains('Invalid credentials').should('be.visible');
-  }
-
-  assertRequiredField() {
-    cy.contains('Required').should('be.visible');
+    this.loginButton().click()
   }
 }
 
-export default new LoginPage();
+export default new LoginPage()

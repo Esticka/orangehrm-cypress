@@ -1,6 +1,6 @@
 import LoginPage from '../../pages/LoginPage'
 
-describe('Login OrangeHRM', () => {
+describe('Login Feature', () => {
 
   beforeEach(() => {
     cy.visit('https://opensource-demo.orangehrmlive.com/')
@@ -18,22 +18,22 @@ describe('Login OrangeHRM', () => {
     cy.url().should('include', '/dashboard')
   })
 
-  it('TC02 - Login gagal dengan password salah', () => {
+  it('TC02 - Login gagal password salah', () => {
     LoginPage.login('Admin', 'salah123')
     LoginPage.errorMessage().should('contain', 'Invalid credentials')
   })
 
-  it('TC03 - Login gagal dengan username salah', () => {
-    LoginPage.login('adminn', 'admin123')
+  it('TC03 - Login gagal username salah', () => {
+    LoginPage.login('adminx', 'admin123')
     LoginPage.errorMessage().should('contain', 'Invalid credentials')
   })
 
-  it('TC04 - Login gagal dengan username kosong', () => {
+  it('TC04 - Login gagal username kosong', () => {
     LoginPage.login(null, 'admin123')
     cy.contains('Required').should('exist')
   })
 
-  it('TC05 - Login gagal dengan password kosong', () => {
+  it('TC05 - Login gagal password kosong', () => {
     LoginPage.login('Admin', null)
     cy.contains('Required').should('exist')
   })
